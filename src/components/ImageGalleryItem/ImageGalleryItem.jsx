@@ -1,11 +1,11 @@
 import React from 'react';
 import css from './ImageGalleryItem.module.css';
 
-const ImageGalleryItem = () => {
+const ImageGalleryItem = ({webformatURL }) => {
   return (
     <>
       <li className={css.galleryItem}>
-        <img className={css.galleryImage} src="" alt="" />
+        <img className={css.galleryImage} src={webformatURL} alt="" />
       </li>
     </>
   );
