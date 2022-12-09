@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { ToastContainer } from "react-toastify";
 import {photosMapper} from '../helpers/photosMapper';
 import Searchbar from "./Searchbar";
 import ImageGallery from "./ImageGallery";
@@ -28,6 +29,7 @@ export class App extends Component {
       <Searchbar onSubmitForm={this.handleFormSubmit}/>
       <ImageGallery />
       <Button />
+      <ToastContainer autoClose={2000} />
 
 
     </>
