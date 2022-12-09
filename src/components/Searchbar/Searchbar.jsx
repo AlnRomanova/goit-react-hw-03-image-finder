@@ -6,22 +6,23 @@ import css from './Searchbar.module.css';
 class Searchbar extends Component {
 
  state = {
-   q: '',
+  searchQuery: '',
 
  }
 
  handleSearchChange = e => {
-  this.setState({q: e.currentTarget.value.toLowerCase()});
+  this.setState({searchQuery: e.currentTarget.value.toLowerCase()});
  };
 
  handleSearchSubmit = e => {
   e.preventDefault();
-  if(this.state.q.trim() === '' ) {
-   toast.error("Please fill out this field")
-    return
+  if(this.state.searchQuery.trim() === '' ) {
+  return toast.error("Please fill out this field")
   }
-  this.props.onSubmitForm(this.state.q);
-  this.setState({q: ''});
+
+  
+  this.props.onSubmitForm(this.state.searchQuery);
+  this.setState({searchQuery: ''});
  };
 
 
@@ -38,7 +39,7 @@ render () {
           <input
             className={css.formInput}
             type="text"
-            value={this.state.q}
+            value={this.state.searchQuery}
             onChange={this.handleSearchChange}
             autoComplete="off"
             autoFocus

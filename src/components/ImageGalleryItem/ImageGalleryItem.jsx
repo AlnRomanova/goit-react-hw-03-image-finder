@@ -1,12 +1,15 @@
 import React from 'react';
 import css from './ImageGalleryItem.module.css';
 
-const ImageGalleryItem = ({image }) => {
+const ImageGalleryItem = ({photos}) => {
   return (
     <>
-      <li className={css.galleryItem}>
-        <img className={css.galleryImage} src={image} alt="" />
+      {photos.map(({id, image}) => (
+       <li className={css.galleryItem} key={id}>
+         <img className={css.galleryImage} src={image} alt="" />
       </li>
+      ))}
+
     </>
   );
 };
