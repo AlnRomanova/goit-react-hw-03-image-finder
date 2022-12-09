@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {toast} from 'react-toastify';
 import css from './Searchbar.module.css';
 
 class Searchbar extends Component {
@@ -16,7 +15,7 @@ class Searchbar extends Component {
  handleSearchSubmit = e => {
   e.preventDefault();
   if(this.state.q.trim() === '' ) {
-    toast("Lorem ipsum dolor")
+   alert("Please fill out this field")
     return
   }
   this.props.onSubmitForm(this.state.q);
