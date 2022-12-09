@@ -7,7 +7,13 @@ axios.defaults.baseURL = BASE_URL;
 
 export const fetchPhotos = (page) => {
     return axios(BASE_URL, { params:
-      { key: KEY, id, webformatURL, largeImageURL
+      { key: KEY,
+        q: searchQuery,
+        page,
+        per_page: 12,
+        image_type: 'photo',
+        orientation: 'horizontal',
     }
    });
   };
+  
