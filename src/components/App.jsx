@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ToastContainer } from "react-toastify";
+import {ToastContainer} from "react-toastify";
 import {photosMapper} from '../helpers/photosMapper';
 import {fetchPhotos} from './services/searchAPI'
 import Searchbar from "./Searchbar";
@@ -21,7 +21,8 @@ export class App extends Component {
 
 
   componentDidUpdate(prevProps, prevState) {
-    if(prevState.searchQuery !== this.state.searchQuery) {
+    if(prevState.searchQuery !== this.state.searchQuery || prevState.page !== this.state.page) {
+      this.setState({isLoading: true,  photos: []});
       this.getPhotos();
     }
 
@@ -30,15 +31,16 @@ export class App extends Component {
 
  async getPhotos () {
 
-  const {searchQuery} = this.state;
+  const {searchQuery, page} = this.state;
   this.setState({isLoading: true});
 
   try {
-  const response = await fetchPhotos(searchQuery);
+  const response = await fetchPhotos(searchQuery, page);
    this.setState( (prevState) => ({ photos:[ ...prevState.photos,...photosMapper(response.data.hits)] }));
     console.log(this.state.photos)
-  } catch(err) {
-   console.log(err)
+  } catch(error) {
+
+    this.setState({error});
   } finally{
     this.setState({ isLoading: false });
   }
@@ -47,30 +49,36 @@ export class App extends Component {
 
   handleFormSubmit = searchQuery => {
     this.setState({searchQuery});
-
   };
 
 
   loadMore = () => {
     console.log('click')
-    this.setState((prevState) => ({searchQuery: prevState.page + 1}));
+    this.setState((prevState) => ({page: prevState.page + 1 }));
+
   };
 
 
 
 
   render() {
-    const {photos} = this.state;
+    const {photos, isLoading, error} = this.state;
   return (
     <>
-      <Searchbar onSubmitForm={this.handleFormSubmit}/>
-      <ImageGallery photos={photos}/>
+<Searchbar onSubmitForm={this.handleFormSubmit}/>
+<div>
+        {error && <p>Whoops, something went wrong: {error}</p>}
+        {isLoading && <p>Loading...</p>}
+        {photos.length > 0 && <ImageGallery photos={photos}/>}
+      </div>
+
+
    <Button handleClick={this.loadMore}/>
 
 
 
 
-      <ToastContainer autoClose={2000} />
+      <ToastContainer autoClose={3000} />
 
 
     </>
