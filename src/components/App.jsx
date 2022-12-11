@@ -46,7 +46,7 @@ export class App extends Component {
             )
           )
         );
-      } else {
+      } else if (page === 1) {
         toast.success(`Hooray! We found images.`, {
           icon: '🚀',
         });
@@ -63,12 +63,11 @@ export class App extends Component {
   };
 
   loadMore = () => {
-    console.log('click');
     this.setState(prevState => ({ page: prevState.page + 1 }));
   };
 
   openModal = data => {
-    this.setState({largeImage: data.hits, showModal: true })
+    this.setState({largeImage: data, showModal: true })
   };
 
   closeModal = () => {
@@ -77,14 +76,14 @@ export class App extends Component {
 
   render() {
 
-    const { photos, isLoading, error, showModal} = this.state;
+    const { photos, isLoading, error, showModal,largeImage} = this.state;
 
     return (
       <>
         <Searchbar onSubmitForm={this.handleFormSubmit} />
-        <ImageGallery photos={photos} onClick={this.openModal}/>
+        <ImageGallery photos={photos} openModal={this.openModal}/>
 
-       {showModal && <Modal image={this.largeImage} closeModal={this.closeModal}/>}
+       {showModal && <Modal image={largeImage} closeModal={this.closeModal}/>}
 
         <>
           {error && <p>{error.message}</p>}

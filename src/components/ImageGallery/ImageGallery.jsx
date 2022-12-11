@@ -6,7 +6,7 @@ import ImageGalleryItem from 'components/ImageGalleryItem';
 const ImageGallery = ({photos, openModal}) => {
   return (
     <ul className={css.gallery}>
-    <ImageGalleryItem  photos={photos} onClick={() => openModal(this.largeImage)} />
+    <ImageGalleryItem  photos={photos} openModal={openModal}/>
     </ul>
 
   )
