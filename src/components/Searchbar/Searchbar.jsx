@@ -20,15 +20,8 @@ class Searchbar extends Component {
   e.preventDefault();
 
   if(this.state.searchQuery.trim() === '' ) {
-  return toast.error("Please fill out this field")
+  return toast.error("🤯 Please fill out this field!")
   }
-  // if (this.state.searchQuery) {
-  //   return toast.info("Sorry, there are no images matching your search query. Please try again.");
-  // }
-
-  // if  (this.state.photos.length > 0) {
-  //      toast.success(`Hooray! We found images.`)
-  // }
 
   this.props.onSubmitForm(this.state.searchQuery);
   this.setState({searchQuery: ''});
