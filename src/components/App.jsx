@@ -6,7 +6,7 @@ import Searchbar from './Searchbar';
 import ImageGallery from './ImageGallery';
 import Button from './Button';
 import Loader from './Loader';
-import Modal from "./Modal";
+import Modal from './Modal';
 
 export class App extends Component {
   state = {
@@ -16,7 +16,6 @@ export class App extends Component {
     isLoading: false,
     largeImage: null,
     showModal: false,
-
   };
 
   componentDidUpdate(_, prevState) {
@@ -56,7 +55,7 @@ export class App extends Component {
     } finally {
       this.setState({ isLoading: false });
     }
-  }
+  };
 
   handleFormSubmit = searchQuery => {
     this.setState({ searchQuery });
@@ -67,24 +66,21 @@ export class App extends Component {
   };
 
   openModal = data => {
-    this.setState({largeImage: data, showModal: true })
+    this.setState({ largeImage: data, showModal: true });
   };
 
   closeModal = () => {
-    this.setState({ largeImage: null, showModal: false})
-  }
+    this.setState({ largeImage: null, showModal: false });
+  };
 
   render() {
-
-    const { photos, isLoading, error, showModal,largeImage} = this.state;
+    const { photos, isLoading, error, showModal, largeImage } = this.state;
 
     return (
       <>
         <Searchbar onSubmitForm={this.handleFormSubmit} />
-        <ImageGallery photos={photos} openModal={this.openModal}/>
-
-       {showModal && <Modal image={largeImage} closeModal={this.closeModal}/>}
-
+        <ImageGallery photos={photos} openModal={this.openModal} />
+        {showModal && <Modal image={largeImage} closeModal={this.closeModal} />}
         <>
           {error && <p>{error.message}</p>}
           {isLoading && <Loader />}

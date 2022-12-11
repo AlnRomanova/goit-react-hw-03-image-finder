@@ -1,5 +1,6 @@
 import React from 'react';
 import css from './Button.module.css';
+import PropTypes from 'prop-types';
 
 const Button = ({handleClick}) => {
   return (
@@ -7,3 +8,7 @@ const Button = ({handleClick}) => {
   )
 }
 export default Button;
+
+Button.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+}

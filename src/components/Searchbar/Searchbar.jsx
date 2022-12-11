@@ -1,15 +1,13 @@
-
 import React, {Component} from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import css from './Searchbar.module.css';
+import PropTypes from 'prop-types';
 
 class Searchbar extends Component {
 
  state = {
   searchQuery: '',
-  photos: [],
-
  }
 
  handleSearchChange = e => {
@@ -20,15 +18,12 @@ class Searchbar extends Component {
   e.preventDefault();
   if(this.state.searchQuery.trim() === '' ) {
   return toast.error("🤯 Please fill out this field!")
-  } 
+  }
   this.props.onSubmitForm(this.state.searchQuery);
   this.setState({searchQuery: ''});
  };
 
-
-
 render () {
-
   return (
     <>
       <header className={css.searchbar}>
@@ -52,5 +47,8 @@ render () {
 }
 };
 
-
 export default Searchbar;
+
+Searchbar.propTypes = {
+  onSubmitForm: PropTypes.func.isRequired,
+};
