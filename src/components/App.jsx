@@ -74,18 +74,15 @@ export class App extends Component {
   };
 
   render() {
-    const { photos, isLoading, error, showModal, largeImage } = this.state;
+    const { photos, isLoading, showModal, largeImage } = this.state;
 
     return (
       <>
         <Searchbar onSubmitForm={this.handleFormSubmit} />
         <ImageGallery photos={photos} openModal={this.openModal} />
-        {showModal && <Modal image={largeImage} closeModal={this.closeModal} />}
-        <>
-          {error && <p>{error.message}</p>}
+          {showModal && <Modal image={largeImage} closeModal={this.closeModal} />}
           {isLoading && <Loader />}
           {photos.length > 0 && <Button handleClick={this.loadMore} />}
-        </>
         <ToastContainer autoClose={2000} />
       </>
     );
