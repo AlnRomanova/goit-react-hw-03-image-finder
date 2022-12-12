@@ -24,10 +24,8 @@ export class App extends Component {
       this.setState({ isLoading: true });
     } else if (prevState.searchQuery !== this.state.searchQuery) {
       this.getPhotos();
-      this.setState({ isLoading: true, photos: [] });
-      toast.success(`Hooray! We found images.`, {
-        icon: '🚀',
-      });
+      this.setState({ isLoading: true, page: 1, photos: [] });
+
     }
   }
 
@@ -48,6 +46,10 @@ export class App extends Component {
             )
           )
         );
+      } else if ( page=== 1) {
+        toast.success(`Hooray! We found images.`, {
+          icon: '🚀',
+        });
       }
     } catch (error) {
       this.setState({ error });
