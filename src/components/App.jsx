@@ -19,13 +19,13 @@ export class App extends Component {
   };
 
   componentDidUpdate(_, prevState) {
-    if (prevState.page !== this.state.page) {
+    if (prevState.searchQuery !== this.state.searchQuery) {
+      this.setState({ isLoading: true, photos: []  });
+    }
+    if (prevState.searchQuery !== this.state.searchQuery ||
+        prevState.page !== this.state.page) {
+      this.setState({ isLoading: true});
       this.getPhotos();
-      this.setState({ isLoading: true });
-    } else if (prevState.searchQuery !== this.state.searchQuery) {
-      this.getPhotos();
-      this.setState({ isLoading: true, page: 1, photos: [] });
-
     }
   }
 
@@ -60,6 +60,7 @@ export class App extends Component {
 
   handleFormSubmit = searchQuery => {
     this.setState({ searchQuery });
+    this.setState({page: 1})
   };
 
   loadMore = () => {

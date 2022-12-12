@@ -10,8 +10,10 @@ class Searchbar extends Component {
   searchQuery: '',
  }
 
+
  handleSearchChange = e => {
   this.setState({searchQuery: e.currentTarget.value.toLowerCase()});
+
  };
 
  handleSearchSubmit = e => {
