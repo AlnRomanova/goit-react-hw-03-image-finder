@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { photosMapper } from '../helpers/photosMapper';
-import { fetchPhotos } from './services/searchAPI';
+import { fetchPhotos } from 'services/searchAPI';
 import Searchbar from './Searchbar';
 import ImageGallery from './ImageGallery';
 import Button from './Button';
@@ -19,12 +19,15 @@ export class App extends Component {
   };
 
   componentDidUpdate(_, prevState) {
-    if (
-      prevState.searchQuery !== this.state.searchQuery ||
-      prevState.page !== this.state.page
-    ) {
-      this.setState({ isLoading: true, photos: [] });
+    if (prevState.page !== this.state.page) {
       this.getPhotos();
+      this.setState({ isLoading: true });
+    } else if (prevState.searchQuery !== this.state.searchQuery) {
+      this.getPhotos();
+      this.setState({ isLoading: true, photos: [] });
+      toast.success(`Hooray! We found images.`, {
+        icon: '🚀',
+      });
     }
   }
 
@@ -45,24 +48,22 @@ export class App extends Component {
             )
           )
         );
-      } else if (page === 1) {
-        toast.success(`Hooray! We found images.`, {
-          icon: '🚀',
-        });
       }
     } catch (error) {
       this.setState({ error });
     } finally {
       this.setState({ isLoading: false });
     }
-  };
+  }
 
   handleFormSubmit = searchQuery => {
     this.setState({ searchQuery });
   };
 
   loadMore = () => {
-    this.setState(prevState => ({ page: prevState.page + 1 }));
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
   };
 
   openModal = data => {
@@ -80,9 +81,9 @@ export class App extends Component {
       <>
         <Searchbar onSubmitForm={this.handleFormSubmit} />
         <ImageGallery photos={photos} openModal={this.openModal} />
-          {showModal && <Modal image={largeImage} closeModal={this.closeModal} />}
-          {isLoading && <Loader />}
-          {photos.length > 0 && <Button handleClick={this.loadMore} />}
+        {showModal && <Modal image={largeImage} closeModal={this.closeModal} />}
+        {isLoading && <Loader />}
+        {photos.length > 0 && <Button handleClick={this.loadMore} />}
         <ToastContainer autoClose={2000} />
       </>
     );
